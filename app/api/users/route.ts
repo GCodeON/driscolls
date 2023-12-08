@@ -1,10 +1,11 @@
-import prisma from '../../prisma/prisma';
+import prisma from '@/prisma/prisma';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: Request) {
 
     try {
         const users = await prisma.user.findMany()
+        console.log('get users/api', users);
   
         return Response.json(users)
   
@@ -16,7 +17,7 @@ export async function GET(req: Request) {
 export async function POST(req: NextRequest) {
 
     const formData = await req.json()
-    console.log('for data', formData);
+    console.log('post data', formData);
 
     try {
         const user = await prisma.user.create({
