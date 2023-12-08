@@ -1,3 +1,5 @@
+import Table from '@/components/table';
+
 async function getUsers() {
   const res = await fetch('http://localhost:3000/api/users', { cache: 'no-store' })
 
@@ -6,22 +8,15 @@ async function getUsers() {
   }
   return res.json()
 }
-type User = {
-  email: string,
-  name: string,
-  id: string
-}
 
 export default async function Page() {
   const users = await getUsers();
   return (
-    <div>
-      {users.map((user: User, idx: string) => (
-        <div key={idx}>
-          <p>email: {user.email}</p>
-          <p>name: {user.name}</p>
-        </div>
-      ))}
-    </div>
+    <main className="p-24">
+      <div className='Users'>
+        <h1 className='text-2xl uppercase font-bold text-center p-6'>Users</h1>
+        <Table data={users}></Table> 
+      </div>
+    </main>
   )
 }
