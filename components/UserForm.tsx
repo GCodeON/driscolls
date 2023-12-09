@@ -13,7 +13,7 @@ interface FormData {
   email: string
 }
 
-export default function UserForm(id: any) {
+export default function UserForm(id?: any) {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState();
 
