@@ -12,7 +12,7 @@ async function getUsers() {
 export default async function Page() {
   const users = await getUsers();
   return (
-    <main className="p-24">
+    <main className="">
       <div className='Users'>
         <h1 className='text-2xl uppercase font-bold text-center p-6'>Users</h1>
         <Table data={users}></Table> 
