@@ -13,7 +13,7 @@ interface FormData {
   email: string
 }
 
-export default function UserForm() {
+export default function UserForm(id: any) {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState();
 
@@ -33,31 +33,31 @@ export default function UserForm() {
 
   const { errors } = formState;
 
-  const existingData: FormData = {
-    name: 'John',
-    email: 'john.doe@example.com',
+  let existingData: FormData = {
+    name: '',
+    email: '',
   };
 
   useEffect(() => {
-      axios.get('/api/users')
+    console.log('id passed', id.id);
+      axios.get('/api/users/' + id.id)
       .then(res => {
         console.log('client user id', res);
-        // setList(res.data.customers)
+        existingData = res.data;
+        Object.keys(existingData).forEach((key) => {
+          setValue(key as keyof FormData, existingData[key as keyof FormData]);
+        });
+        
       })
       .catch((error) => {
         console.log(error);
-      });
-
-
-      Object.keys(existingData).forEach((key) => {
-        setValue(key as keyof FormData, existingData[key as keyof FormData]);
       });
   }, [setValue]);
 
 
   const onSubmit = (data: FormData) => {
     console.log('on submit', data);
-    axios.post('/api/users', data)
+    axios.post('/api/users/' + id.id, data)
     .then((res: any) => {
       console.log('form response', res)
       if(res) {
