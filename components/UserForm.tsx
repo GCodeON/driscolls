@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 import "yup-phone-lite";
 
 import axios from 'axios';
+import {Input} from "@nextui-org/react";
+import {Button} from "@nextui-org/react";
 
 interface FormData {
   name: string,
@@ -74,17 +76,16 @@ export default function UserForm(id?: any) {
  
   return (
     
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-6/12 gap-2 items-center">
       <Controller
         name="name"
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <div>
-            <label>Name</label>
-            <input {...field} />
+          <>
+            <Input {...field} label="Name" />
             <span>{errors.name?.message}</span>
-          </div>
+          </>
         )}
       />
 
@@ -93,15 +94,14 @@ export default function UserForm(id?: any) {
         control={control}
         defaultValue=""
         render={({ field }) => (
-          <div>
-            <label>Email</label>
-            <input {...field} />
+          <>
+            <Input type="email" {...field} label="Email" />
             <span>{errors.email?.message}</span>
-          </div>
+          </>
         )}
       />
 
-      <button type="submit">Submit</button>
+      <Button type="submit" color="primary">{id ? 'Update' : 'Submit' }</Button>
       {message && (
         <div id="form-message">
           <h3>{message}</h3>
