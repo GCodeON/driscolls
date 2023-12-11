@@ -9,8 +9,6 @@ import {
 } from "@nextui-org/react";
 
 import UserForm from '@/components/UserForm';
-
-// import {EditIcon} from "@/public/edit";
 import {DeleteIcon} from "@/public/delete";
 import {EyeIcon} from "@/public/eye";
 
@@ -137,22 +135,10 @@ export default function UsersTable() {
             placement="top-center"
           >
             <ModalContent>
-              {(onClose) => (
-                <>
-                  <ModalHeader className="flex flex-col gap-1">New User</ModalHeader>
-                  <ModalBody>
-                    <UserForm />
-                  </ModalBody>
-                  <ModalFooter>
-                    <Button color="danger" variant="flat" onPress={onClose}>
-                      Cancel
-                    </Button>
-                    <Button color="primary" onPress={onAdd}>
-                      Add
-                    </Button>
-                  </ModalFooter>
-                </>
-              )}
+              <ModalHeader className="flex flex-col gap-1">New User</ModalHeader>
+              <ModalBody>
+                <UserForm />
+              </ModalBody>
             </ModalContent>
           </Modal>
         </>

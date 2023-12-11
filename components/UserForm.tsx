@@ -15,7 +15,7 @@ interface FormData {
   email: string
 }
 
-export default function UserForm(id?: any) {
+export default function UserForm(props: any) {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState();
 
@@ -41,9 +41,10 @@ export default function UserForm(id?: any) {
   };
 
   useEffect(() => {
-    if(id) {
-      console.log('id passed', id.id);
-      axios.get('/api/users/' + id.id)
+    console.log('id passed', props.id);
+
+    if(props.id) {
+      axios.get('/api/users/' + props.id)
       .then(res => {
         console.log('client user id', res);
         existingData = res.data;
@@ -61,7 +62,7 @@ export default function UserForm(id?: any) {
 
   const onSubmit = (data: FormData) => {
     console.log('on submit', data);
-    axios.post('/api/users/' + id.id, data)
+    axios.post('/api/users/' + props.id, data)
     .then((res: any) => {
       console.log('form response', res)
       if(res) {
@@ -101,7 +102,7 @@ export default function UserForm(id?: any) {
         )}
       />
 
-      <Button type="submit" color="primary">{id ? 'Update' : 'Submit' }</Button>
+      <Button type="submit" color="primary">{props.id ? 'Update' : 'Add' }</Button>
       {message && (
         <div id="form-message">
           <h3>{message}</h3>
