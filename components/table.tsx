@@ -49,18 +49,24 @@ export default function UsersTable() {
       axios.get('/api/users')
       .then(res => {
         console.log('users', res)
-        setUsers(res.data);
-        // console.log('client user id', res);
-        // existingData = res.data;
-        // Object.keys(existingData).forEach((key) => {
-        //   setValue(key as keyof FormData, existingData[key as keyof FormData]);
-        // });
-        
+        setUsers(res.data);        
       })
       .catch((error) => {
         console.log(error);
       });
   }, []);
+
+  function onDelete(user: User) {
+    console.log('on delete', user);
+    axios.delete('/api/users/' + user.id)
+      .then(res => {
+        console.log('delete', res)
+        setUsers(res.data);        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
     const cellValue = user[columnKey as keyof User];
@@ -95,7 +101,9 @@ export default function UsersTable() {
             </Tooltip> */}
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
-                <DeleteIcon />
+                <DeleteIcon onClick={() => {
+                  onDelete(user);
+                }} />
               </span>
             </Tooltip>
           </div>
