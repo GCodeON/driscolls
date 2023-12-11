@@ -9,7 +9,8 @@ import {
   TableBody, 
   TableRow, 
   TableCell, 
-  Tooltip 
+  Tooltip,
+  Button
 } from "@nextui-org/react";
 
 import {EditIcon} from "@/public/edit";
@@ -59,13 +60,17 @@ export default function UsersTable() {
   function onDelete(user: User) {
     console.log('on delete', user);
     axios.delete('/api/users/' + user.id)
-      .then(res => {
-        console.log('delete', res)
-        setUsers(res.data);        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    .then(res => {
+      console.log('delete', res)
+      setUsers(res.data);        
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  function onAdd() {
+    console.log('on add');
   }
 
   const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
@@ -94,11 +99,6 @@ export default function UsersTable() {
                 </span>
               </Link>
             </Tooltip>
-            {/* <Tooltip content="Edit user">
-              <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
-                <EditIcon />
-              </span>
-            </Tooltip> */}
             <Tooltip color="danger" content="Delete user">
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon onClick={() => {
@@ -114,21 +114,26 @@ export default function UsersTable() {
   }, []);
 
   return (
-    <>
+    <div className="flex items-center ">
       {users && (
-        <Table aria-label="list of users table">
-        <TableHeader columns={columns}>
-          {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-        </TableHeader>
-        <TableBody items={users}>
-          {(item: User) => (
-            <TableRow key={item.id}>
-              {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+        <>
+          <Table aria-label="list of users table">
+            <TableHeader columns={columns}>
+              {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+            </TableHeader>
+            <TableBody items={users}>
+              {(item: User) => (
+                <TableRow key={item.id}>
+                  {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+          <div className='fixed bottom-0 w-full text-center'>
+            <Button className='my-8 px-5 py-2 bg-green-500 text-white text-xl font-bold tracking-wide rounded-full' onClick={onAdd}>Add User</Button>
+          </div>
+        </>
       )}
-    </>
+    </div>
   )
 }

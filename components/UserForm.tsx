@@ -64,8 +64,6 @@ export default function UserForm(id?: any) {
       console.log('form response', res)
       if(res) {
         setMessage('Successful Submission');
-        // reset();
-        // getList();
       }
     })
     .catch((error: any) => {
