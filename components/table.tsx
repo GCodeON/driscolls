@@ -1,7 +1,7 @@
 'use client'
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Link from 'next/link'
-
+import axios from 'axios';
 import {
   Table, 
   TableHeader, 
@@ -41,7 +41,27 @@ const columns = [
   }
 ];
 
-export default function UsersTable(users: any) {
+export default function UsersTable() {
+  const [users, setUsers] = useState();
+  
+  useEffect(() => {
+    console.log('users');
+      axios.get('/api/users')
+      .then(res => {
+        console.log('users', res)
+        setUsers(res.data);
+        // console.log('client user id', res);
+        // existingData = res.data;
+        // Object.keys(existingData).forEach((key) => {
+        //   setValue(key as keyof FormData, existingData[key as keyof FormData]);
+        // });
+        
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
   const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
     const cellValue = user[columnKey as keyof User];
   
@@ -86,17 +106,21 @@ export default function UsersTable(users: any) {
   }, []);
 
   return (
-    <Table aria-label="list of users table">
-      <TableHeader columns={columns}>
-        {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
-      </TableHeader>
-      <TableBody items={users.data}>
-        {(item: User) => (
-          <TableRow key={item.id}>
-            {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
-          </TableRow>
-        )}
-      </TableBody>
-    </Table>
+    <>
+      {users && (
+        <Table aria-label="list of users table">
+        <TableHeader columns={columns}>
+          {(column) => <TableColumn key={column.key}>{column.label}</TableColumn>}
+        </TableHeader>
+        <TableBody items={users}>
+          {(item: User) => (
+            <TableRow key={item.id}>
+              {(columnKey) => <TableCell>{renderCell(item, columnKey)}</TableCell>}
+            </TableRow>
+          )}
+        </TableBody>
+      </Table>
+      )}
+    </>
   )
 }
