@@ -18,6 +18,7 @@ interface FormData {
 export default function UserForm(props: any) {
   const [message, setMessage] = useState('');
   const [user, setUser] = useState();
+  let submitUrl = '/api/users/';
 
   const validationSchema = Yup.object().shape({
     name: Yup.string().required('name is required.'),
@@ -44,7 +45,9 @@ export default function UserForm(props: any) {
     console.log('id passed', props.id);
 
     if(props.id) {
-      axios.get('/api/users/' + props.id)
+      submitUrl = '/api/users/' + props.id;
+
+      axios.get(submitUrl)
       .then(res => {
         console.log('client user id', res);
         existingData = res.data;
@@ -62,7 +65,7 @@ export default function UserForm(props: any) {
 
   const onSubmit = (data: FormData) => {
     console.log('on submit', data);
-    axios.post('/api/users/' + props.id, data)
+    axios.post(submitUrl, data)
     .then((res: any) => {
       console.log('form response', res)
       if(res) {
