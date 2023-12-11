@@ -41,7 +41,8 @@ export default function UserForm(id?: any) {
   };
 
   useEffect(() => {
-    console.log('id passed', id.id);
+    if(id) {
+      console.log('id passed', id.id);
       axios.get('/api/users/' + id.id)
       .then(res => {
         console.log('client user id', res);
@@ -54,6 +55,7 @@ export default function UserForm(id?: any) {
       .catch((error) => {
         console.log(error);
       });
+    }
   }, [setValue]);
 
 
@@ -74,7 +76,7 @@ export default function UserForm(id?: any) {
  
   return (
     
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col w-6/12 gap-2 items-center">
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2 items-center">
       <Controller
         name="name"
         control={control}

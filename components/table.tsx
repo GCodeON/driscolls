@@ -3,17 +3,14 @@ import React, { useEffect, useState } from "react";
 import Link from 'next/link'
 import axios from 'axios';
 import {
-  Table, 
-  TableHeader, 
-  TableColumn, 
-  TableBody, 
-  TableRow, 
-  TableCell, 
-  Tooltip,
+  Table, TableHeader, TableColumn, TableBody, TableRow, TableCell, Tooltip,
+  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, useDisclosure,
   Button
 } from "@nextui-org/react";
 
-import {EditIcon} from "@/public/edit";
+import UserForm from '@/components/UserForm';
+
+// import {EditIcon} from "@/public/edit";
 import {DeleteIcon} from "@/public/delete";
 import {EyeIcon} from "@/public/eye";
 
@@ -44,7 +41,8 @@ const columns = [
 
 export default function UsersTable() {
   const [users, setUsers] = useState();
-  
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+
   useEffect(() => {
     console.log('users');
       axios.get('/api/users')
@@ -130,8 +128,33 @@ export default function UsersTable() {
             </TableBody>
           </Table>
           <div className='fixed bottom-0 w-full text-center'>
-            <Button className='my-8 px-5 py-2 bg-green-500 text-white text-xl font-bold tracking-wide rounded-full' onClick={onAdd}>Add User</Button>
+            <Button className='my-8 px-5 py-2 bg-green-500 text-white text-xl font-bold tracking-wide rounded-full' onPress={onOpen}>Add User</Button>
           </div>
+          
+          <Modal 
+            isOpen={isOpen} 
+            onOpenChange={onOpenChange}
+            placement="top-center"
+          >
+            <ModalContent>
+              {(onClose) => (
+                <>
+                  <ModalHeader className="flex flex-col gap-1">New User</ModalHeader>
+                  <ModalBody>
+                    <UserForm />
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button color="danger" variant="flat" onPress={onClose}>
+                      Cancel
+                    </Button>
+                    <Button color="primary" onPress={onAdd}>
+                      Add
+                    </Button>
+                  </ModalFooter>
+                </>
+              )}
+            </ModalContent>
+          </Modal>
         </>
       )}
     </div>
