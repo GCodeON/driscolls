@@ -3,6 +3,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/react";
 
+import  LanguageSwitcher from '@/components/LangSwitcher';
+
 export function Nav() {
   return (
     <Navbar isBordered>
@@ -26,6 +28,9 @@ export function Nav() {
           <Link href="/news">
             News
           </Link>
+        </NavbarItem>
+        <NavbarItem>
+          <LanguageSwitcher />
         </NavbarItem>
       </NavbarContent>
     </Navbar>
