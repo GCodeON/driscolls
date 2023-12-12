@@ -71,7 +71,7 @@ export default function Page() {
                       width="100%"
                       alt={item.title}
                       className="w-full object-cover h-[140px]"
-                      src={item.urlToImage}
+                      src={item.urlToImage ? item.urlToImage : 'https://placehold.co/400'}
                     />
                   </CardBody>
                 </Card>
