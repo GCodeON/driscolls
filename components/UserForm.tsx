@@ -42,7 +42,6 @@ export default function UserForm(props: any) {
   };
 
   useEffect(() => {
-    console.log('id passed', props.id);
 
     if(props.id) {
       submitUrl = '/api/users/' + props.id;

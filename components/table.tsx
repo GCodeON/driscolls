@@ -9,6 +9,7 @@ import {
 } from "@nextui-org/react";
 
 import UserForm from '@/components/UserForm';
+
 import {DeleteIcon} from "@/public/delete";
 import {EyeIcon} from "@/public/eye";
 
@@ -39,25 +40,15 @@ const columns = [
 
 export default function UsersTable() {
   const [users, setUsers] = useState();
-  const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const {isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   useEffect(() => {
-    console.log('users');
-      axios.get('/api/users')
-      .then(res => {
-        console.log('users', res)
-        setUsers(res.data);        
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    getUsers();
   }, []);
 
-  function onDelete(user: User) {
-    console.log('on delete', user);
-    axios.delete('/api/users/' + user.id)
+  function getUsers() {
+    axios.get('/api/users/')
     .then(res => {
-      console.log('delete', res)
       setUsers(res.data);        
     })
     .catch((error) => {
@@ -65,8 +56,18 @@ export default function UsersTable() {
     });
   }
 
-  function onAdd() {
-    console.log('on add');
+  function onDelete(user: User) {
+    axios.delete('/api/users/' + user.id)
+    .then(res => {
+      setUsers(res.data);        
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
+  function modalClose() {
+    getUsers();
   }
 
   const renderCell = React.useCallback((user: User, columnKey: React.Key) => {
@@ -133,11 +134,12 @@ export default function UsersTable() {
             isOpen={isOpen} 
             onOpenChange={onOpenChange}
             placement="top-center"
+            onClose={modalClose}
           >
             <ModalContent>
               <ModalHeader className="flex flex-col gap-1">New User</ModalHeader>
               <ModalBody>
-                <UserForm />
+                <UserForm/>
               </ModalBody>
             </ModalContent>
           </Modal>
