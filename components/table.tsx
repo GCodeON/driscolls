@@ -137,7 +137,7 @@ export default function UsersTable() {
             onClose={modalClose}
           >
             <ModalContent>
-              <ModalHeader className="flex flex-col gap-1">New User</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-center">New User</ModalHeader>
               <ModalBody>
                 <UserForm/>
               </ModalBody>
