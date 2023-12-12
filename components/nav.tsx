@@ -15,9 +15,7 @@ export function Nav() {
             alt="logo"
           />
         </NavbarBrand>
-
       </NavbarContent>
-
       <NavbarContent justify="end">
         <NavbarItem>
           <Link  href="/users">

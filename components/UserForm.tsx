@@ -103,7 +103,7 @@ export default function UserForm(props: any) {
         )}
       />
 
-      <Button type="submit" color="primary">{props.id ? 'Update' : 'Add' }</Button>
+      <Button type="submit" className='my-8 px-5 py-2 bg-green-500 text-white text-sm font-bold tracking-wide rounded-full'>{props.id ? 'Update' : 'Add' }</Button>
       {message && (
         <div id="form-message">
           <h3>{message}</h3>
