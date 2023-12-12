@@ -3,12 +3,15 @@ import React, { useEffect, useState } from "react";
 import Link from 'next/link'
 import axios from 'axios';
 
-import {Card, CardHeader, CardFooter, CardBody, Image, Divider} from "@nextui-org/react";
+import {Card, CardHeader, CardFooter, CardBody, Image, Divider, Avatar, AvatarGroup, AvatarIcon} from "@nextui-org/react";
+
+const baseURL = 'https://newsapi.org/v2/'
 
 export default function Page() {
-  const newsAPIUrl = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
-
   const [news, setNews] = useState([]);
+  const [category, setCategory] = useState('');
+
+  const newsAPIUrl = `${baseURL}top-headlines?country=us&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
 
   useEffect(() => {
     axios.get(newsAPIUrl)
@@ -21,8 +24,32 @@ export default function Page() {
     });
   }, []);
 
+  const categories = ['business', 'entertainment', 'health', 'science', 'sports', 'technology']
+
+  function getCategory(subject: string) {
+    const categoryURL = `${baseURL}top-headlines?category=${subject}&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
+
+    axios.get(categoryURL)
+    .then(res => {
+      console.log('res', res);
+      setNews(res.data.articles);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+  }
+
   return (
     <main className="h-screen flex items-center justify-start flex-col p-50">
+       <div className="flex gap-3 items-center py-10">
+        {categories && (
+          categories.map((category, index) => {
+            return (
+              <p onClick={() => { getCategory(category)} } key={index}>{category}</p>
+            )
+          })
+        )}
+      </div>
       <div className='news gap-3 grid grid-cols-2 sm:grid-cols-3 max-w-screen-lg'>
         {news && (
           news.map((item: any, index) => {
