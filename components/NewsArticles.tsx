@@ -1,19 +1,16 @@
 "use client"
 import React, { useEffect, useState } from "react";
-import Link from 'next/link'
-import { useRouter } from 'next/navigation'
- 
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import { Card, CardHeader, CardBody, Image, Divider } from "@nextui-org/react";
 
-import {Card, CardHeader, CardFooter, CardBody, Image, Divider, Avatar, AvatarGroup, AvatarIcon} from "@nextui-org/react";
-
-const baseURL = 'https://newsapi.org/v2/'
+const baseURL = 'https://gnews.io/api/v4/'
 
 export default function NewsArticles(props: any) {
   const [news, setNews] = useState([]);
-  const router = useRouter()
+  const router = useRouter();
 
-  const newsAPIUrl = `${baseURL}top-headlines?country=us&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
+  const newsAPIUrl = `${baseURL}top-headlines?category=general&lang=${props.lang}&apikey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
 
   useEffect(() => {
     axios.get(newsAPIUrl)
@@ -54,11 +51,10 @@ export default function NewsArticles(props: any) {
   ]
 
   function getCategory(subject: string) {
-    const categoryURL = `${baseURL}top-headlines?country=us&category=${subject}&apiKey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
+    const categoryURL = `${baseURL}top-headlines?category=${subject}&lang=${props.lang}&apikey=${process.env.NEXT_PUBLIC_NEWS_API_KEY}`;
 
     axios.get(categoryURL)
     .then(res => {
-      console.log('category updated', res);
       setNews(res.data.articles);
     })
     .catch((error) => {
@@ -84,7 +80,7 @@ export default function NewsArticles(props: any) {
             return (
               <div className="news-item" key={index}>
                 <Card shadow="md" key={index} isPressable onClick={() => {
-                  router.push(`/news/${item.title}?news=${JSON.stringify(item)}`)}}>
+                  router.push(`/${props.lang}/news/${item.title}?news=${JSON.stringify(item)}`)}}>
                   <CardHeader className="p-5 flex-col items-start">
                     <small className="text-tiny">{item.title}</small>
                     <Divider className="my-4" />
@@ -96,7 +92,7 @@ export default function NewsArticles(props: any) {
                       width="100%"
                       alt={item.title}
                       className="w-full object-cover h-[140px]"
-                      src={item.urlToImage ? item.urlToImage : 'https://placehold.co/400'}
+                      src={item.image? item.image : 'https://placehold.co/400'}
                     />
                   </CardBody>
                 </Card>

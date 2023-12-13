@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem } from "@nextui-org/react";
 
 import { Locale } from '@/i18n.config'
 import { getTranslations  } from '@/lib/dictionary';

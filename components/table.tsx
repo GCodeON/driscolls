@@ -9,7 +9,6 @@ import {
 } from "@nextui-org/react";
 
 import UserForm from '@/components/UserForm';
-
 import {DeleteIcon} from "@/public/delete";
 import {EyeIcon} from "@/public/eye";
 
