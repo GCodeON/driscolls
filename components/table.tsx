@@ -19,28 +19,40 @@ type User = {
   id: string
 }
 
-const columns = [
-  {
-    key: "id",
-    label: "ID",
-  },
-  {
-    key: "email",
-    label: "EMAIL",
-  },
-  {
-    key: "name",
-    label: "NAME",
-  },
-  {
-    key: "actions",
-    label: "ACTIONS",
+type Props = { 
+  table: {
+    email: string;
+    name: string;
+    actions: string;
+    add: string;
+    details: string;
+    delete: string;
   }
-];
+}
 
-export default function UsersTable() {
+export default function UsersTable(props: Props) {
   const [users, setUsers] = useState();
   const {isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
+  const columns = [
+    {
+      key: "id",
+      label: "ID",
+    },
+    {
+      key: "email",
+      label: props.table.email,
+    },
+    {
+      key: "name",
+      label: props.table.name,
+    },
+    {
+      key: "actions",
+      label: props.table.actions,
+    }
+  ];
+
+  console.log('get params', props);
 
   useEffect(() => {
     getUsers();
@@ -89,14 +101,14 @@ export default function UsersTable() {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content="Details">
+            <Tooltip content={props.table.details}>
               <Link href={`/users/${user.id}`}>
                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                   <EyeIcon />
                 </span>
               </Link>
             </Tooltip>
-            <Tooltip color="danger" content="Delete user">
+            <Tooltip color="danger" content={props.table.delete}>
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon onClick={() => {
                   onDelete(user);
@@ -127,7 +139,7 @@ export default function UsersTable() {
             </TableBody>
           </Table>
           <div className='fixed bottom-0 w-full text-center'>
-            <Button className='my-8 px-5 py-2 bg-green-500 text-white text-xl font-bold tracking-wide rounded-full' onPress={onOpen}>Add User</Button>
+            <Button className='my-8 px-5 py-2 bg-green-500 text-white text-xl font-bold tracking-wide rounded-full' onPress={onOpen}>{props.table.add}</Button>
           </div>
           
           <Modal 
@@ -137,7 +149,7 @@ export default function UsersTable() {
             onClose={modalClose}
           >
             <ModalContent>
-              <ModalHeader className="flex flex-col gap-1 text-center">New User</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-center">{props.table.new}</ModalHeader>
               <ModalBody>
                 <UserForm/>
               </ModalBody>

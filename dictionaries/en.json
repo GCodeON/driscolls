@@ -3,8 +3,17 @@
         "users": "Users",
         "news": "News"
     },
+    "users": {
+        "email": "Email",
+        "name": "Name",
+        "actions": "Actions",
+        "add": "Add User",
+        "details": "View Details",
+        "delete": "Delete User",
+        "new": "New User"
+    },
     "page": {
-      "home": {
+      "users": {
         "title": "Welcome to NextJs i18n",
         "description": "Internationalization in NextJs 13 App router"
       },

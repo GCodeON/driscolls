@@ -3,6 +3,15 @@
       "users": "Usarios",
       "news": "Noticias"
     },
+    "users": {
+        "email": "Correo Electronico",
+        "name": "Nombre",
+        "actions": "Acciones",
+        "add": "Agrega Usario",
+        "details": "Ver Detalles",
+        "delete": "Borrar Usario",
+        "new": "Nuevo Usario"
+    },
     "page": {
       "home": {
         "title": "Willkommen bei NextJs i18n",

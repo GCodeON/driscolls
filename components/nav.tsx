@@ -3,12 +3,11 @@ import Image from 'next/image'
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/react";
 
 import { Locale } from '@/i18n.config'
-import { getDictionary  } from '@/lib/dictionary';
+import { getTranslations  } from '@/lib/dictionary';
 import  LanguageSwitcher from '@/components/LangSwitcher';
 
 export default async function Nav({lang}: {lang: Locale}) {
-  const { navigation } = await getDictionary(lang);
-  console.log('navigation', navigation);
+  const { navigation } = await getTranslations(lang);
   return (
     <Navbar isBordered>
       <NavbarContent className="gap-4">
@@ -23,7 +22,7 @@ export default async function Nav({lang}: {lang: Locale}) {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Link href={`/${lang}/Users`}>
+          <Link href={`/${lang}/users`}>
             {navigation.users}
           </Link>
         </NavbarItem>
