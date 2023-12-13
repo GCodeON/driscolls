@@ -140,7 +140,7 @@ export default function UsersTable(props: any) {
             <ModalContent>
               <ModalHeader className="flex flex-col gap-1 text-center">{props.translations.new}</ModalHeader>
               <ModalBody>
-                <UserForm page={props.translations} />
+                <UserForm translations={props.translations} />
               </ModalBody>
             </ModalContent>
           </Modal>
