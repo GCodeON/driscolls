@@ -1,11 +1,14 @@
-'use client'
 import Link from 'next/link'
 import Image from 'next/image'
 import {Navbar, NavbarBrand, NavbarContent, NavbarItem} from "@nextui-org/react";
 
+import { Locale } from '@/i18n.config'
+import { getDictionary  } from '@/lib/dictionary';
 import  LanguageSwitcher from '@/components/LangSwitcher';
 
-export function Nav() {
+export default async function Nav({lang}: {lang: Locale}) {
+  const { navigation } = await getDictionary(lang);
+  console.log('navigation', navigation);
   return (
     <Navbar isBordered>
       <NavbarContent className="gap-4">
@@ -20,13 +23,13 @@ export function Nav() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Link  href="/users">
-            Users
+          <Link href={`/${lang}/Users`}>
+            {navigation.users}
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="/news">
-            News
+          <Link href={`/${lang}/news`}>
+            {navigation.news}
           </Link>
         </NavbarItem>
         <NavbarItem>
