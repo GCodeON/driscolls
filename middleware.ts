@@ -31,15 +31,13 @@ export function middleware(request: NextRequest) {
   ) {
     return
   } 
+    const news = request.nextUrl.searchParams.get('news') ? `?news=${request.nextUrl.searchParams.get('news')}` : '';
 
   // Redirect if there is no locale
   if (pathnameIsMissingLocale) {
     const locale = getLocale(request)
     return NextResponse.redirect(
-      new URL(
-        `/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}`,
-        request.url
-      )
+      new URL(`/${locale}${pathname.startsWith('/') ? '' : '/'}${pathname}${news} `, request.url)
     )
   }
 }

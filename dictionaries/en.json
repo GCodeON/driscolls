@@ -14,6 +14,13 @@
         "success": "Sucessful Submission"
     },
     "news": {
-        
+        "category": {
+            "business": "business",
+            "entertainment": "entertainment",
+            "health": "health",
+            "science": "science",
+            "sports": "sports",
+            "technology": "technology"
+        }
     }
   }

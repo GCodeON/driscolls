@@ -9,7 +9,7 @@ export default function Page({ params }: { params: { id: string }}) {
   const searchParams = useSearchParams();
   const data = searchParams.get('news');
   const news = data ? JSON.parse(data as string): null;
-  console.log('get query', news);
+  console.log('get query', news, params.id);
   return (
     <div className="h-screen flex items-center justify-start flex-col gap-4 p-10">
       <a href={news.url} target="_blank">
