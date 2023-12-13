@@ -9,6 +9,9 @@ import axios from 'axios';
 import {Input} from "@nextui-org/react";
 import {Button} from "@nextui-org/react";
 
+import { FaEdit } from "react-icons/fa";
+import { FaUserPlus, FaCircleCheck } from "react-icons/fa6";
+
 interface FormData {
   name: string,
   email: string
@@ -85,7 +88,7 @@ export default function UserForm(props: any) {
         defaultValue=""
         render={({ field }) => (
           <>
-            <Input {...field} label="Name" />
+            <Input {...field} label={props.page.name} />
             <span>{errors.name?.message}</span>
           </>
         )}
@@ -97,16 +100,18 @@ export default function UserForm(props: any) {
         defaultValue=""
         render={({ field }) => (
           <>
-            <Input type="email" {...field} label="Email" />
+            <Input type="email" {...field} label={props.page.email} />
             <span>{errors.email?.message}</span>
           </>
         )}
       />
 
-      <Button type="submit" className='my-8 px-5 py-2 bg-green-500 text-white text-sm font-bold tracking-wide rounded-full'>{props.id ? 'Update' : 'Add' }</Button>
+      <Button type="submit" className='my-8 px-5 py-2 bg-green-500 text-white text-sm font-bold tracking-wide rounded-full'>{props.id ? <FaEdit/> : <FaUserPlus/>}</Button>
       {message && (
         <div id="form-message">
-          <h3>{message}</h3>
+          {/* <h3>{message}</h3> */}
+          {/* <FaCircleCheck /> */}
+          {props.page.success}
         </div>
       )}
     </form>

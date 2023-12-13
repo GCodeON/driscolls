@@ -10,7 +10,8 @@
         "add": "Add User",
         "details": "View Details",
         "delete": "Delete User",
-        "new": "New User"
+        "new": "New User",
+        "success": "Sucessful Submission"
     },
     "page": {
       "users": {

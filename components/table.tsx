@@ -19,18 +19,7 @@ type User = {
   id: string
 }
 
-type Props = { 
-  table: {
-    email: string;
-    name: string;
-    actions: string;
-    add: string;
-    details: string;
-    delete: string;
-  }
-}
-
-export default function UsersTable(props: Props) {
+export default function UsersTable(props: any) {
   const [users, setUsers] = useState();
   const {isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const columns = [
@@ -40,15 +29,15 @@ export default function UsersTable(props: Props) {
     },
     {
       key: "email",
-      label: props.table.email,
+      label: props.translations.email,
     },
     {
       key: "name",
-      label: props.table.name,
+      label: props.translations.name,
     },
     {
       key: "actions",
-      label: props.table.actions,
+      label: props.translations.actions,
     }
   ];
 
@@ -101,14 +90,14 @@ export default function UsersTable(props: Props) {
       case "actions":
         return (
           <div className="relative flex items-center gap-2">
-            <Tooltip content={props.table.details}>
+            <Tooltip content={props.translations.details}>
               <Link href={`/users/${user.id}`}>
                 <span className="text-lg text-default-400 cursor-pointer active:opacity-50">
                   <EyeIcon />
                 </span>
               </Link>
             </Tooltip>
-            <Tooltip color="danger" content={props.table.delete}>
+            <Tooltip color="danger" content={props.translations.delete}>
               <span className="text-lg text-danger cursor-pointer active:opacity-50">
                 <DeleteIcon onClick={() => {
                   onDelete(user);
@@ -139,7 +128,7 @@ export default function UsersTable(props: Props) {
             </TableBody>
           </Table>
           <div className='fixed bottom-0 w-full text-center'>
-            <Button className='my-8 px-5 py-2 bg-green-500 text-white text-xl font-bold tracking-wide rounded-full' onPress={onOpen}>{props.table.add}</Button>
+            <Button className='my-8 px-5 py-2 bg-green-500 text-white text-xl font-bold tracking-wide rounded-full' onPress={onOpen}>{props.translations.add}</Button>
           </div>
           
           <Modal 
@@ -149,9 +138,9 @@ export default function UsersTable(props: Props) {
             onClose={modalClose}
           >
             <ModalContent>
-              <ModalHeader className="flex flex-col gap-1 text-center">{props.table.new}</ModalHeader>
+              <ModalHeader className="flex flex-col gap-1 text-center">{props.translations.new}</ModalHeader>
               <ModalBody>
-                <UserForm/>
+                <UserForm page={props.translations} />
               </ModalBody>
             </ModalContent>
           </Modal>

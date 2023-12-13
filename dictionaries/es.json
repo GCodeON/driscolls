@@ -10,7 +10,8 @@
         "add": "Agrega Usario",
         "details": "Ver Detalles",
         "delete": "Borrar Usario",
-        "new": "Nuevo Usario"
+        "new": "Nuevo Usario",
+        "success": "Archivado"
     },
     "page": {
       "home": {
